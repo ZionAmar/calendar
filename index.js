@@ -2,6 +2,8 @@ const port = 7777;
 const express = require('express');
 const app = express();
 app.use(express.json())
+const dotenv = require("dotenv");
+dotenv.config();
 
 const body_parser = require('body-parser');
 const path = require('path');
@@ -12,8 +14,10 @@ app.use(express.static('public'));
 app.listen(port,()=>{console.log(`Now listen on port http://localhost:${port}`);
 })
 
-const pages = require('./routes/pages');
-app.use('/pages',pages);
+// const pages = require('./routes/pages');
+// app.use('/pages',pages);
+const curses = require('./routes/curses');
+app.use('/curses',curses);
 
 app.get('/', (req, res) => {
     res.render('main',{});

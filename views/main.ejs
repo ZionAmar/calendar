@@ -1,6 +1,13 @@
 <%- include('top') %>
 <div class="container">
-<h1>ברוך הבא</h1>
+    <h1>ברוך הבא</h1>
+    <table border="1">
+        <tr>
+            <% for(let r = 1; r <= 20; r++) { %>
+                <td><%= r %></td> 
+            <% } %>
+        </tr>
+    </table>
 </div>
 <script></script>
 <%- include('bottom') %>
