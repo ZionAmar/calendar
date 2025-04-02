@@ -14,8 +14,6 @@ app.use(express.static('public'));
 app.listen(port,()=>{console.log(`Now listen on port http://localhost:${port}`);
 })
 
-// const pages = require('./routes/pages');
-// app.use('/pages',pages);
 const curses = require('./routes/curses');
 app.use('/curses',curses);
 
