@@ -66,8 +66,8 @@ async function updateCourse(req, res, next) {
 
 // Middleware למחיקת קורס
 async function deleteCourse(req, res, next) {
-    const { id } = req.params;
-
+    const  id  = req.body.id;
+    
     if (!id) {
         req.error = { status: 400, message: 'Missing course id' };
         return next();

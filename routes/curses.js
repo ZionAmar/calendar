@@ -9,32 +9,42 @@ const {
 } = require('../middleware/cursesMidd');
 
 // שליפת כל הקורסים
-router.get('/', getCourses, (req, res) => {
-    res.json(req.courses);
+router.get('/list', getCourses, (req, res) => {
+    res.render("list_crs",{courses: req.courses,title: "רשימת קורסים"});
 });
 
 // שליפת קורס לפי מזהה
-router.get('/:id', getCourseById, (req, res) => {
+router.get('crs/:id', getCourseById, (req, res) => {
     if (req.error) return res.status(req.error.status).json({ error: req.error.message });
     res.json(req.course);
 });
 
 // יצירת קורס חדש
-router.post('/', createCourse, (req, res) => {
-    if (req.error) return res.status(req.error.status).json({ error: req.error.message });
-    res.status(201).json(req.newCourse);
+router.get('/add', (req, res) => {
+    res.render("add_crs",{title: "הוספת קורס",
+                          data: {}
+    });
 });
-
-// עדכון קורס קיים
-router.put('/:id', updateCourse, (req, res) => {
+router.post('/add', createCourse, (req, res) => {
     if (req.error) return res.status(req.error.status).json({ error: req.error.message });
-    res.json(req.updatedCourse);
+    res.redirect("/curses/list");
+});
+// עדכון קורס קיים
+router.get('/update/:id',getCourseById, (req, res) => {
+    res.render("add_crs",{title: "עריכת קורס",
+                          data: req.course
+    });
+});
+// עדכון קורס קיים
+router.post('/update/:id', updateCourse, getCourses, (req, res) => {
+    if (req.error) return res.status(req.error.status).json({ error: req.error.message });
+    res.redirect("/curses/list");
 });
 
 // מחיקת קורס
-router.delete('/:id', deleteCourse, (req, res) => {
+router.post('/delete', deleteCourse, (req, res) => {
     if (req.error) return res.status(req.error.status).json({ error: req.error.message });
-    res.json(req.deletedMessage);
+    res.redirect("/curses/list");
 });
 
 module.exports = router;

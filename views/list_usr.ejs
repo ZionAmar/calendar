@@ -1,0 +1,44 @@
+<%- include('top') %>
+<div class="container">
+  <h1>כל המשתמשים</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>עריכה</th>
+        <th>שם</th>
+        <th>שם משתמש</th>
+        <th>מייל</th>
+        <th>תפקיד</th>
+        <th>מחיקה</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(let usr of users) { %>
+      <tr>
+        <!-- עריכה בתוך טופס (שליחה ב־GET) -->
+        <td>
+          <form action="/users/update/<%= usr.id %>" method="get">
+            <button title="ערוך">עריכה</button>
+          </form>
+        </td>
+
+        <td><%= usr.name %></td>
+        <td><%= usr.userName %></td>
+        <td><%= usr.email %></td>
+        <td><%= usr.roleName %></td>
+
+        <!-- מחיקה בטופס POST -->
+        <td>
+          <form action="/users/delete" method="post">
+            <input type="hidden" name="id" value="<%= usr.id %>" />
+            <button onclick="return confirm('למחוק את <%= usr.name %>?')">
+              מחיקה
+            </button>
+          </form>
+        </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<%- include('bottom') %>

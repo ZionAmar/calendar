@@ -16,7 +16,9 @@ app.listen(port,()=>{console.log(`Now listen on port http://localhost:${port}`);
 
 const curses = require('./routes/curses');
 app.use('/curses',curses);
+const users = require('./routes/users');
+app.use('/users',users);
 
 app.get('/', (req, res) => {
-    res.render('main',{});
+    res.render('main',{title:"Wellcome"});
 });

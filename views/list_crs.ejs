@@ -1,0 +1,21 @@
+<%- include('top') %>
+<div class="container">
+  <h1>כל הקורסים</h1>
+  <table border="1">
+    <th>שם קורס</th>
+    <th></th>
+    <% for(let crs of courses) { %>
+    <tr>
+      <td><%= crs.name %></td>
+    <td>
+      <form action="/curses/delete" method="post">
+        <input type="hidden" name="id" value="<%= crs.id %>" />
+        <button>מחיקה</button>
+      </form>
+    </td>
+</tr>
+    <% } %>
+  </table>
+</div>
+<script></script>
+<%- include('bottom') %>

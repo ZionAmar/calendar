@@ -1,0 +1,30 @@
+<%- include('top') %>
+<h1><%= title %></h1>
+<form action="<%= data.id ? '/users/update/' + data.id : '/users/add' %>" method="post">
+  <label for="name">שם</label>
+  <input type="text" name="name" id="name" value="<%= data.name || '' %>" />
+  <br />
+
+  <label for="email">מייל</label>
+  <input type="email" name="email" id="email" value="<%= data.email || '' %>" />
+  <br />
+
+  <label for="rool">תפקיד</label>
+  <select name="rool" id="rool">
+    <option value="admin" <%= data.roleName === 'admin' ? 'selected' : '' %>>מנהל</option>
+    <option value="teacher" <%= data.roleName === 'teacher' ? 'selected' : '' %>>מרצה</option>
+    <option value="student" <%= data.roleName === 'student' ? 'selected' : '' %>>סטודנט</option>
+  </select>
+  <br />
+
+  <label for="userName">שם משתמש</label>
+  <input type="text" name="userName" id="userName" value="<%= data.userName || '' %>" />
+  <br />
+
+  <label for="pass">סיסמה</label>
+  <input type="password" name="pass" id="pass" value="<%= data.pass || '' %>" />
+  <br />
+
+  <button>שמור</button>
+</form>
+<%- include('bottom') %>
