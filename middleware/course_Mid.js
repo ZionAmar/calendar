@@ -30,33 +30,42 @@ async function UpdateCourse(req,res,next){
 
     next();
 }
-async function GetAllCourses(req,res,next){
-    let filter = (req.query.filter !== undefined) ? req.query.filter : "";
-    let Query="SELECT * FROM courses";
-    let wh="";
-    if(filter !== ""){
-        wh += (wh === "")?" WHERE " : " AND ";
-        wh += ` ( name LIKE '%${filter}%' )`;
+async function GetAllCourses(req, res, next) {
+    let page = 0;
+    let rowPerPage = 2; // או כל כמות אחרת שתרצה בעמוד
+    if (req.query.p !== undefined) {
+        page = parseInt(req.query.p);
     }
-    if(req.user_id !== undefined){
-        wh += (wh === "")?" WHERE " : " AND ";
-        wh += ` ( id IN (SELECT crs_id FROM crs2user WHERE user_id=${req.user_id}) )`;
-    }
-    Query += wh;
-    Query+= " LIMIT 0,100 ";
+    req.page = page;
 
+    let rows = [];
     const promisePool = db_pool.promise();
-    let rows=[];
-    req.courses_data=[];
+    let total_rows = 0;
+
+    // שלב 1: ספירת הקורסים
+    let Query = "SELECT COUNT(id) AS cnt FROM courses";
     try {
         [rows] = await promisePool.query(Query);
-        req.courses_data=rows;
+        total_rows = rows[0].cnt;
+    } catch (err) {
+        console.log(err);
+    }
+    req.total_pages = Math.floor(total_rows / rowPerPage);
+
+    // שלב 2: שליפת הקורסים לעמוד הנוכחי
+    Query = "SELECT * FROM courses";
+    Query += ` LIMIT ${page * rowPerPage}, ${rowPerPage}`;
+    req.courses_data = [];
+    try {
+        [rows] = await promisePool.query(Query);
+        req.courses_data = rows;
     } catch (err) {
         console.log(err);
     }
 
     next();
 }
+
 async function GetOneCourse(req,res,next){
     let id = parseInt(req.params.id);
     console.log(id)
