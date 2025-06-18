@@ -1,14 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title><%= page_title %></title>
-    <style>
-        td, th { border: 1px solid black; }
-        .centered { text-align: center; }
-    </style>
-</head>
-<body>
+<%- include('top_page') %>
 <h1><%= page_title %></h1>
 <a href="/Crs/Add">add course</a>
 <table>
@@ -44,5 +34,5 @@
         </td>
     </tr>
 </table>
-</body>
-</html>
+<%- include('bottom_page') %>
+

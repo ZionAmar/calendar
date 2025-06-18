@@ -5,13 +5,10 @@ async function isLogged(req, res,next){
     let user_id=-1;
     if (jwtToken !== "") {
         jwt.verify(jwtToken, 'myPrivateKey', async (err, decodedToken) => {
-            // console.log("decodedToken=",decodedToken);
             if (err) {
                 console.log("err=",err);
             } else {
-                // let val = `${rows[0].id},${rows[0].name}`;
                 let data = decodedToken.data;
-                // console.log("data=",data);
                 user_id = data.split(",")[0];
                 req.user_id=user_id;
             }
@@ -65,7 +62,6 @@ async function AddUser(req,res,next){
     Query +="( `name`, `uname`, `passwd`, `email`, `type_id`, `tz`)";
     Query +=" VALUES ";
     Query +=`( '${name}', '${uname}', '${enc_pass}', '${email}', '${type_id}', '${tz}')`;
-    // console.log(__filename,Query);
     const promisePool = db_pool.promise();
     let rows=[];
     try {
@@ -80,7 +76,6 @@ async function UpdateUser(req,res,next){
     let id = parseInt(req.params.id);
     let name    = (req.body.name   !== undefined) ? addSlashes(req.body.name      ) : "";
     let uname   = (req.body.uname  !== undefined) ? addSlashes(req.body.uname     ) : "";
-    // let passwd  = (req.body.passwd !== undefined) ? addSlashes(req.body.passwd    ) : "";
     let email   = (req.body.email  !== undefined) ? addSlashes(req.body.email     ) : "";
     let type_id = (req.body.type_id!== undefined) ?     Number(req.body.type_id   ) : -1;
     let tz      = (req.body.tz     !== undefined) ? addSlashes(req.body.tz        ) : "";
@@ -93,7 +88,6 @@ async function UpdateUser(req,res,next){
     let Query=`UPDATE users SET `;
     Query +=`name   ='${name   }' ,`;
     Query +=`uname  ='${uname  }' ,`;
-    // Query +=`passwd ='${passwd }' ,`;
     Query +=`email  ='${email  }' ,`;
     Query +=`type_id='${type_id}' ,`;
     Query +=`tz     ='${tz     }'  `;
