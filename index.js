@@ -24,6 +24,8 @@ global.stripSlashes  = require('slashes').stripSlashes;
 global.was_logged = false;
 const user_Mid = require("./middleware/user_Mid");
 
+const actv_R = require('./Routers/Activity_R');
+app.use('/A',[user_Mid.isLogged],actv_R);
 const crs_R = require('./Routers/course_R');
 app.use('/Crs',[user_Mid.isLogged],crs_R);
 const usr_R = require('./Routers/users_R');

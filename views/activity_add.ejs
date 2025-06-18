@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>תכנון פעילות</title>
+</head>
+<body>
+    <h1>תכנון פעילות</h1>
+    <form action="" method="post">
+        <label for="study_date">תאריך רצוי</label>
+        <input type="date" name="study_date" id="study_date">
+        <br>
+        <label for="start_time">שעת התחלה</label>
+        <input type="time" name="start_time" id="start_time">
+        <br>
+        <label for="end_time">שעת סיום</label>
+        <input type="time" name="end_time" id="end_time">
+        <br>
+        <label for="course_id">קורס</label>
+        <select name="course_id" id="course_id">
+            <% for(let crs of courses){ %>
+                <option value="<%= crs.id %>"><%= crs.name %></option>
+            <% } %>
+        </select>
+        <br>
+        <label for="notes">נושא הלימוד</label>
+        <textarea name="notes" id="notes"></textarea>
+        <br>
+        <button>save</button>
+    </form>
+</body>
+</html>

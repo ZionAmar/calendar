@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>רשימת תוכניות</title>
+</head>
+<body>
+<H1>רשימת תוכניות</H1>
+<table>
+    <tr>
+        <th>תאריך</th>
+        <th>הקורס</th>
+        <th>התחלה</th>
+        <th>סיום</th>
+        <th>נושא ללמוד</th>
+        <th></th>
+    </tr>
+    <% for(let act of activity_data) { %>
+        <tr>
+            <td><%= act.nice_date %></td>
+            <td><%= courses_names[act.course_id] %></td>
+            <td><%= act.start_time %></td>
+            <td><%= act.end_time %></td>
+            <td><%= act.notes %></td>
+            <td></td>
+        </tr>
+    <% } %>
+</table>
+</body>
+</html>
